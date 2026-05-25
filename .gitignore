@@ -1,0 +1,19 @@
+agent/.env
+web/.env.local
+
+# Python / Agent
+.venv/
+__pycache__/
+*.pyc
+agent/__pycache__/
+
+# Node / Web (Next.js)
+web/node_modules/
+web/.next/
+web/out/
+web/build/
+npm-debug.log*
+
+# Системные файлы
+.DS_Store
+Thumbs.db
