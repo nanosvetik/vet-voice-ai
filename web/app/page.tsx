@@ -87,7 +87,7 @@ export default function VetClinicDemo() {
                 <BarVisualizer
                   state="speaking"
                   barCount={5}
-                  options={{ minHeight: 15, colors: ["#4f46e5", "#818cf8"] }}
+                  options={{ minHeight: 15 }}
                 />
               </div>
 
