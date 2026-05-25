@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
 
-  const roomName = 'vet-clinic-room-test-4';
+  const roomName = `vet-clinic-room-${Date.now()}`;
 
   const participantName = 'Client_' + Math.floor(Math.random() * 1000);
 

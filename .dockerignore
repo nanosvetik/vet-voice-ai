@@ -3,5 +3,4 @@ __pycache__
 node_modules
 .next
 .git
-*.env*
 README.md

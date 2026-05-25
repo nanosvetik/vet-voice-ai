@@ -10,9 +10,8 @@ import {
 } from "@livekit/components-react";
 import "@livekit/components-styles";
 
-// Невидимый компонент для воспроизведения гудков
 function CallRingtone() {
-  // Теперь слушаем статус самого ИИ (connecting, initializing, listening, speaking)
+
   const { state } = useVoiceAssistant();
   const [audio] = useState(() => typeof window !== "undefined" ? new window.Audio("/ring.mp3") : null);
 
@@ -77,22 +76,21 @@ export default function VetClinicDemo() {
             video={false}
             onDisconnected={() => setToken("")}
           >
-            {/* Наш обновленный невидимый плеер с гудками */}
+
             <CallRingtone />
 
-            {/* Этот компонент невидим, но он выводит звук бота в твои динамики */}
             <RoomAudioRenderer />
             
             <div className="flex flex-col items-center gap-6 mt-4">
               <div className="h-24 flex items-center justify-center w-full bg-slate-50 rounded-2xl">
-                {/* Красивый прыгающий эквалайзер голоса */}
+
                 <BarVisualizer
                   state="speaking"
                   barCount={5}
                   options={{ minHeight: 15, colors: ["#4f46e5", "#818cf8"] }}
                 />
               </div>
-              {/* Панель с кнопкой микрофона и отключения */}
+
               <VoiceAssistantControlBar />
             </div>
           </LiveKitRoom>
