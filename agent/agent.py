@@ -10,7 +10,6 @@ from livekit.agents import (
 )
 from livekit.plugins import google
 
-# Загружаем переменные окружения
 load_dotenv()
 
 VET_SYSTEM_PROMPT = """
@@ -42,8 +41,6 @@ class VetAssistant(Agent):
 async def entrypoint(ctx: JobContext):
     await ctx.connect()
 
-    # Тот самый твой рабочий вариант без лишних костылей!
-    # Принудительно отключаем Vertex-авторизацию из системы для этого процесса
     os.environ.pop("GOOGLE_APPLICATION_CREDENTIALS", None)
 
     model = google.realtime.RealtimeModel(

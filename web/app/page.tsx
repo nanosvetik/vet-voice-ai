@@ -1,13 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   LiveKitRoom,
   RoomAudioRenderer,
   VoiceAssistantControlBar,
   BarVisualizer,
+  useVoiceAssistant,
 } from "@livekit/components-react";
 import "@livekit/components-styles";
+
+// Невидимый компонент для воспроизведения гудков
+function CallRingtone() {
+  // Теперь слушаем статус самого ИИ (connecting, initializing, listening, speaking)
+  const { state } = useVoiceAssistant();
+  const [audio] = useState(() => typeof window !== "undefined" ? new window.Audio("/ring.mp3") : null);
+
+  useEffect(() => {
+    if (!audio) return;
+
+    // Зацикливаем звук, чтобы он не обрывался
+    audio.loop = true;
+
+    // Играем гудки, пока ИИ подключается и загружает модель (те самые 3-4 секунды тишины)
+    if (state === "connecting" || state === "initializing") {
+      audio.play().catch(e => console.error("Ошибка автовоспроизведения:", e));
+    } else {
+      // Как только статус меняется (например, на listening) — ставим на паузу
+      audio.pause();
+      audio.currentTime = 0;
+    }
+
+    return () => {
+      audio.pause();
+    };
+  }, [state, audio]);
+
+  return null;
+}
 
 export default function VetClinicDemo() {
   const [token, setToken] = useState("");
@@ -47,6 +77,9 @@ export default function VetClinicDemo() {
             video={false}
             onDisconnected={() => setToken("")}
           >
+            {/* Наш обновленный невидимый плеер с гудками */}
+            <CallRingtone />
+
             {/* Этот компонент невидим, но он выводит звук бота в твои динамики */}
             <RoomAudioRenderer />
             
